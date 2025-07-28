@@ -1,0 +1,37 @@
+<!-- public/fib.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fibonacci</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Fibonacci Series</h2>
+    <p>Enter the number of terms:</p>
+    <input type="number" id="fibInput" placeholder="Enter number">
+    <br>
+    <button onclick="generateFibonacci()">Generate</button>
+    <p id="result"></p>
+    <br>
+    <a href="/">Back to Home</a>
+  </div>
+
+  <script>
+    function generateFibonacci() {
+      let n = parseInt(document.getElementById("fibInput").value);
+      if (isNaN(n) || n <= 0) {
+        document.getElementById("result").innerText = "Please enter a positive number.";
+        return;
+      }
+
+      let fib = [0, 1];
+      for (let i = 2; i < n; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+      }
+      document.getElementById("result").innerText = "Fibonacci Series: " + fib.slice(0, n).join(", ");
+    }
+  </script>
+</body>
+</html>
