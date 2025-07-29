@@ -13,8 +13,12 @@ app.get('/', (req, res) => {
 
 // Route to Fibonacci page
 app.get('/fib', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'fib.html'));
+  res.sendFile(path.join(__dirname, 'public', 'fibonacci.html'));
 });
+app.get('/col', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'collections.html'));
+});
+
 
 // Route to Palindrome page
 app.get('/palindrome', (req, res) => {

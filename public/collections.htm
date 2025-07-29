@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Operation using JavaScript</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Array Operation Using JS (Like Iterator)</h2>
+
+  <label>Enter Array 1 (comma separated):</label><br>
+  <input type="text" id="array1"><br>
+
+  <label>Enter Array 2 (comma separated):</label><br>
+  <input type="text" id="array2"><br>
+
+  <button onclick="mergeArrays()">Merge Arrays</button>
+
+  <div id="mergedOutput"></div>
+
+  <br><hr><br>
+
+  <label>Check if Target Exists:</label><br>
+  <input type="text" id="target"><br>
+  <button onclick="checkTarget()">Check Target</button>
+  <div id="targetResult"></div>
+
+  <br><hr><br>
+
+  <label>Get Previous and Next of Element:</label><br>
+  <input type="text" id="checkElement"><br>
+  <button onclick="showBeforeAfter()">Show Before and After</button>
+  <div id="beforeAfterResult"></div>
+
+  <br><hr><br>
+
+  <label>Enter Element to Delete:</label><br>
+  <input type="text" id="deleteElement"><br>
+  <button onclick="deleteElement()">Delete Element</button>
+  <div id="updatedArray"></div>
+
+  <script>
+    let finalArray = [];
+
+    function mergeArrays() {
+      const a1 = document.getElementById('array1').value.split(',').map(x => x.trim());
+      const a2 = document.getElementById('array2').value.split(',').map(x => x.trim());
+      finalArray = [...a1, ...a2];
+
+      document.getElementById('mergedOutput').innerHTML =
+        "Merged Array: [" + finalArray.join(', ') + "]";
+    }
+
+    function checkTarget() {
+      const target = document.getElementById('target').value.trim();
+      const found = finalArray.includes(target);
+
+      document.getElementById('targetResult').innerText =
+        found ? `"${target}" found in array.` : `"${target}" not found.`;
+    }
+
+    function showBeforeAfter() {
+      const val = document.getElementById('checkElement').value.trim();
+      const index = finalArray.indexOf(val);
+
+      if (index === -1) {
+        document.getElementById('beforeAfterResult').innerText = `"${val}" not found.`;
+      } else {
+        const before = index > 0 ? finalArray[index - 1] : "None";
+        const after = index < finalArray.length - 1 ? finalArray[index + 1] : "None";
+
+        document.getElementById('beforeAfterResult').innerText =
+          `Before: ${before}, After: ${after}`;
+      }
+    }
+
+    function deleteElement() {
+      const val = document.getElementById('deleteElement').value.trim();
+      const index = finalArray.indexOf(val);
+
+      if (index === -1) {
+        document.getElementById('updatedArray').innerText = `"${val}" not found.`;
+      } else {
+        finalArray.splice(index, 1);
+        document.getElementById('updatedArray').innerText =
+          `Updated Array: [${finalArray.join(', ')}]`;
+      }
+    }
+  </script>
+</body>
+</html>
