@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JUnit Annotations & Assertions Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #f7f9fc;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .run-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        pre, .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 15px 0;
+        }
+        .output {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            white-space: pre;
+        }
+        .note {
+            background-color: #fffde7;
+            border-left: 4px solid #ffd600;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JUnit Annotations & Assertions Demo</h1>
+
+        <h2>1. Run JUnit Test (Simulated Output)</h2>
+        <button class="run-button" onclick="runTests()">Run JUnit Tests</button>
+        <div id="testOutput" class="output">Click the button to simulate output...</div>
+
+        <h2>2. JUnit Annotations Example Code</h2>
+        <div class="code-block">
+<pre>import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class JunitAnnotation {
+
+    @BeforeClass
+    public static void beforeClass() {
+        System.out.println("in before class");
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        System.out.println("in after class");
+    }
+
+    @Before
+    public void before() {
+        System.out.println("in before");
+    }
+
+    @After
+    public void after() {
+        System.out.println("in after");
+    }
+
+    @Test
+    public void test() {
+        System.out.println("in test");
+    }
+
+    @Ignore
+    public void ignoreTest() {
+        System.out.println("in ignore test");
+    }
+}
+</pre>
+        </div>
+
+        <h2>3. Test Runner Code</h2>
+        <div class="code-block">
+<pre>import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
+public class TestRunner {
+    public static void main(String[] args) {
+        Result result = JUnitCore.runClasses(JunitAnnotation.class);
+
+        for (Failure failure : result.getFailures()) {
+            System.out.println(failure.toString());
+        }
+
+        System.out.println(result.wasSuccessful());
+    }
+}</pre>
+        </div>
+
+        <h2>4. Assertion Examples</h2>
+        <div class="code-block">
+<pre>import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class TestAssertions {
+
+    @Test
+    public void testAssertions() {
+        String str1 = new String("abc");
+        String str2 = new String("abc");
+        String str3 = null;
+        String str4 = "abc";
+        String str5 = "abc";
+
+        int val1 = 5;
+        int val2 = 6;
+        String[] expectedArray = {"one", "two", "three"};
+        String[] resultArray =  {"one", "two", "three"};
+
+        assertEquals(str1, str2);
+        assertTrue(val1 < val2);
+        assertFalse(val1 > val2);
+        assertNotNull(str1);
+        assertNull(str3);
+        assertSame(str4, str5);
+        assertNotSame(str1, str2);
+        assertArrayEquals(expectedArray, resultArray);
+    }
+}
+</pre>
+        </div>
+
+        <h2>5. JUnit Annotations Summary</h2>
+        <ul>
+            <li><strong>@BeforeClass</strong> – runs once before all test methods</li>
+            <li><strong>@AfterClass</strong> – runs once after all test methods</li>
+            <li><strong>@Before</strong> – runs before each test method</li>
+            <li><strong>@After</strong> – runs after each test method</li>
+            <li><strong>@Test</strong> – marks a method as a test case</li>
+            <li><strong>@Ignore</strong> – ignores the test method</li>
+        </ul>
+
+        <h2>6. Common Assertion Methods</h2>
+        <ul>
+            <li><code>assertEquals(expected, actual)</code></li>
+            <li><code>assertTrue(condition)</code></li>
+            <li><code>assertFalse(condition)</code></li>
+            <li><code>assertNull(object)</code></li>
+            <li><code>assertNotNull(object)</code></li>
+            <li><code>assertSame(obj1, obj2)</code></li>
+            <li><code>assertNotSame(obj1, obj2)</code></li>
+            <li><code>assertArrayEquals(expectedArray, resultArray)</code></li>
+        </ul>
+
+        
+    </div>
+
+    <script>
+        function runTests() {
+            const output = document.getElementById('testOutput');
+            output.innerHTML = '';
+
+            const steps = [
+                "in before class",
+                "in before",
+                "in test",
+                "in after",
+                "in after class",
+                "true"
+            ];
+
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < steps.length) {
+                    output.textContent += steps[index] + "\n";
+                    index++;
+                    output.scrollTop = output.scrollHeight;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 600);
+        }
+    </script>
+</body>
+</html>
